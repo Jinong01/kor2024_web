@@ -18,12 +18,12 @@ function _write(){ // write는 JS함수중에 이미 있어서 중복이다.
     let contentInput = document.querySelector('.contentInput')
     let pwdInput = document.querySelector('.pwdInput')
 
-    let tilte = titleInput.value;
+    let title = titleInput.value;
     let content = contentInput.value;
     let pwd = pwdInput.value;
 
     // [2] 입력받은 값들을 객체화.
-    let board = {tilte : tilte, content : content, pwd : pwd};
+    let board = {title : title, content : content, pwd : pwd};
 
     // [3] fetch 함수를 이용한 자바의 컨트롤러에게 입력받은 값 전달하고 응답받기
     const option = {
@@ -42,11 +42,16 @@ function _write(){ // write는 JS함수중에 이미 있어서 중복이다.
         else {alert('write fail')}
     })
     .catch(error => {console.log(error)})
+    findAll()
 }
 
+findAll()
 function findAll(){
-    
+
     fetch('/day52/findall' )
     .then(r => r.json())
     .then(data => {console.log(data)});
+
+    
+    
 }
