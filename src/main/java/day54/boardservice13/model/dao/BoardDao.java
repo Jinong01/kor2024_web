@@ -34,7 +34,8 @@ public class BoardDao {
             ps.executeUpdate();
             return true;
         }
-        catch (Exception e){ System.out.println(e); return false;}
+        catch (Exception e){ System.out.println(e);}
+        return false;
     }
 
     // 2. 게시물 전체 조회
@@ -60,22 +61,23 @@ public class BoardDao {
 
     // 3. 게시물 개별 조회
     public BoardDto findId(int bno) {
-        BoardDto boardDto = new BoardDto();
         try{
             String sql = "select * from board where bno = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1,bno);
             ResultSet rs = ps.executeQuery();
-                    while (rs.next()){
-                        boardDto.setBno(rs.getInt("bno"));
-                        boardDto.setBtitle(rs.getString("btitle"));
-                        boardDto.setBcontent(rs.getString("bcontent"));
-                        boardDto.setBdate(rs.getString("bdate"));
-                        boardDto.setBwriter(rs.getString("bwriter"));
-                        boardDto.setBpwd(null);
+                    if (rs.next()){
+                        BoardDto boardDto = new BoardDto(
+                                rs.getInt("bno"),
+                                rs.getString("btitle"),
+                                rs.getString("bcontent"),
+                                rs.getString("bdate"),
+                                rs.getString("bwriter"),
+                                null);
+                        return boardDto;
                     }
         } catch (Exception e){ System.out.println(e);}
-        return boardDto;
+        return null;
     }
 
     // 4. 게시물 수정
@@ -86,9 +88,10 @@ public class BoardDao {
             ps.setString(1, boardDto.getBtitle());
             ps.setString(2, boardDto.getBcontent());
             ps.setInt(3,boardDto.getBno());
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e){ System.out.println(e); return  false;}
+            int count = ps.executeUpdate();
+            if(count==1){return true;}
+        } catch (Exception e){ System.out.println(e); }
+        return  false;
     }
 
     // 5. 게시물 삭제
@@ -97,8 +100,9 @@ public class BoardDao {
             String sql = "delete from board where bno = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1,bno);
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) { System.out.println(e); return false;}
+            int count = ps.executeUpdate();
+            if(count==1){return true;}
+        } catch (Exception e) { System.out.println(e);}
+        return false;
     }
 }

@@ -14,10 +14,22 @@
 5. controller , dao 만들기
     1. 기능 단위 구현 : 게시물쓰기, 게시물전체조회, 게시물개별조회, 게시물수정, 게시물삭제
 
-[ 게시물 쓰기 ]
+[ 게시물 쓰기 ]  PostMapping  RequestBody
     매개변수 : 제목, 내용, 작성자, 비밀번호  ->  BoardDto
     반환값 : 쓰기 성공/실패  ->  boolean
 
-[ 게시물 전체 출력 ]
+[ 게시물 전체 출력 ]  GetMapping
     매개변수 : X
     반환값 : 여러개(ArrayList) 게시물(BoardDto) = ArrayList<BoardDto>
+
+[ 게시물 개별 조회 ]  GetMapping  RequestParam
+    매개변수 : 조회할 게시물 번호  ->  int bno
+    반환값 : 조회한 하나의 게시물정보 또는 없으면 null  ->  BoardDto
+
+[ 게시물 삭제 ]  DeleteMapping  RequestParam
+    매개변수 : 삭제할 게시물 번호  ->  int bno
+    반환값 : 삭제 성공여부  ->  boolean
+
+[ 게시물 수정 ]  PutMapping  RequestBody
+    매개변수 : 수정할 대상 번호, 새로운 제목 , 새로운 내용  ->  BoardDto
+    반환값 : 수정 성공여부  ->  boolean

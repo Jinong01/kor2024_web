@@ -36,6 +36,7 @@ import java.util.ArrayList;
 
 // ========== 웹 ========== //
 @RestController // 현재 클래스에 rest api 가 가능한 클래스임을 주입한다.
+// @RestController 에 RequestBody 가 포함되어있다
 // 콘솔과 다른점 : [1] 클래스 위에 @RestController [2] 함수에 @Mapping 을 한다.
 public class BoardController {
 

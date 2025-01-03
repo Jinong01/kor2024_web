@@ -103,7 +103,13 @@
 
         response 응답
 
-[ 실습1] spring web 에서 post, get, put, delete 메소드를 사용하여 HTTP 통신 주소 만들기
+    HTTP 이용한 통신 라이브러리
+        0. [크롬] talend api , 테스트용도
+        1. [JS] Fetch
+        2. [JQUERY] AJAX
+        3. [JS] AXIOS
+
+[ 실습1 ] spring web 에서 post, get, put, delete 메소드를 사용하여 HTTP 통신 주소 만들기
 
             내PC , 톰캣서버
 사용자------------------->Spring web
