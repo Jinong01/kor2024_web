@@ -34,10 +34,7 @@ public class BoardDao {
             ps.executeUpdate();
             return true;
         }
-        catch (Exception e){
-            System.out.println(e);
-            return false;
-        }
+        catch (Exception e){ System.out.println(e); return false;}
     }
 
     // 2. 게시물 전체 조회
@@ -80,7 +77,6 @@ public class BoardDao {
         } catch (Exception e){ System.out.println(e);}
         return boardDto;
     }
-
 
     // 4. 게시물 수정
     public boolean update(BoardDto boardDto){

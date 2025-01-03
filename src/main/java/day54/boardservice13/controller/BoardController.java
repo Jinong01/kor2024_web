@@ -74,7 +74,8 @@ public class BoardController {
     // 5. 게시물 삭제
     @DeleteMapping("/delete")
     public boolean delete(@RequestParam int bno){
+        System.out.println("BoardController.delete");
+        System.out.println("bno = " + bno);
         return BoardDao.getInstance().delete(bno);
     }
-
 }
