@@ -1,0 +1,30 @@
+[ 어노테이션 ]
+    1. 정의 : 프로그램 코드에 추가적인 정보를 제공하는 표시 또는 주석
+        ex] 내용이 담긴 스티커, 가이드북, 요약스티커
+    2. 목적 : 특정 프로그램의 참고 코드나 설명을 미리 알려주는 목적
+        ex] 스프링 회사에서 웹 개발을 할때 이거해라 저거해라
+    3. 종류
+        1. 일반 어노테이션
+            @Override
+            @Deprecated : 더 이상 사용되지 않는 코드나 메소드를 표시 할때 사용
+        2. 메타 어노테이션*
+            - Spring 프레임워크로 주로 사용
+            - 어떻게 사용할지 미리 코드를 알려주는 목적
+                @RestController
+
+[ 오버라이딩 ]
+    @Override : 상속 extends/구현 implements 한 클래스 또는 인터페이스 메서드를 재정의
+[ 오버로딩 ]
+    동일한 함수명을 여러개 선언, 전제조건 : 매개변수의 개수,타입,순서 달라야한다
+
+[ Spring 어노테이션 종류 ]
+    - Spring 어노테이션 제공하는 목적 : 개발자에게 빠른 웹 개발이 가능하도록 미리 어노테이션(스티커)에 코드를 담아두었다.
+    - Spring 프레임워크란? 프레임[기반/틀] 워크[일] : 웹 개발(일)을 하는데 미리 만들어진 기반/틀
+    1. @SpringBootApplication : 주로 아래 세 가지의 핵심 어노테이션을 합친 어노테이션
+        - @EnableAutoConfiguration : Spring web 필요한 설정을 자동으로 해주고, 톰캣(HTTP web server)가 내장 되어있다.
+        - @ComponentScan : Spring 프로젝트내 모든 컴포넌트(Spring been) 찾아서 메모리(Spring Container) 등록한다.
+        - @Configuration : Spring 프로젝트내 모든 설정 파일을 읽어드린다.
+
+[ Spring 기본용어 ]
+    1. Spring been : 스프링 관리하는 인스턴스(객체)
+    2. Spring Container : 스프링이 관리하는 메모리 구역, 스프링 컨테이너 안에는 여러개의 been이 존재한다.
