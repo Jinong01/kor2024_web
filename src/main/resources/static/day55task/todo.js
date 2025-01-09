@@ -27,7 +27,7 @@ function _print(){
     fetch('/print')
     .then(r => r.json())
     .then(d => {
-    let todolist = d;    
+    let todolist = d;
     let HTML = '';
     for (let index = 0; index <= todolist.length-1; index++) {
         const todo = todolist[index]
