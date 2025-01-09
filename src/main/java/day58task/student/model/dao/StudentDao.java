@@ -29,8 +29,8 @@ public class StudentDao {
             ps.setInt(2,studentDto.getSkor());
             ps.setInt(3,studentDto.getSmath());
             ps.setInt(4,studentDto.getSeng());
-            ps.executeUpdate();
-            return true;
+            int count = ps.executeUpdate();
+            if (count==1){return true;}
         } catch (Exception e) { System.out.println(e);}
         return false;
     }
@@ -55,6 +55,26 @@ public class StudentDao {
         return list;
     }
 
+    public StudentDto info(int sno) {
+        try {
+            String sql = "select * from student where sno =?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,sno);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                StudentDto studentDto = new StudentDto(
+                rs.getInt("sno"),
+                rs.getString("sname"),
+                rs.getInt("skor"),
+                rs.getInt("smath"),
+                rs.getInt("seng")
+                );
+                return studentDto;
+            }
+        } catch (Exception e) { System.out.println(e);}
+        return null;
+    }
+
     public boolean update(StudentDto studentDto) {
         try {
             String sql = "update student set (skor , smath , seng) set (?,?,?) where id = ?";
@@ -63,8 +83,8 @@ public class StudentDao {
             ps.setInt(2,studentDto.getSmath());
             ps.setInt(3,studentDto.getSeng());
             ps.setInt(4,studentDto.getSno());
-            ps.executeUpdate();
-            return true;
+            int count = ps.executeUpdate();
+            if (count==1){return true;}
         } catch (Exception e){ System.out.println(e);}
         return false;
     }
@@ -74,9 +94,11 @@ public class StudentDao {
             String sql = "delete from student where sno = ? ";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1,sno);
-            ps.executeUpdate();
-            return true;
+            int count = ps.executeUpdate();
+            if (count==1){return true;}
         } catch (Exception e) { System.out.println(e);}
         return false;
     }
+
+
 }

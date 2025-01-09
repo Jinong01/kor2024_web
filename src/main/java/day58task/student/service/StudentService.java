@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class StudentService {
 
     @Autowired
-    StudentDao studentDao;
+    private StudentDao studentDao;
 
     public boolean regist(StudentDto studentDto) {
         return studentDao.regist(studentDto);
@@ -21,6 +21,8 @@ public class StudentService {
         return studentDao.printAll();
     }
 
+    public StudentDto info(int sno) {return studentDao.info(sno);}
+
     public boolean update(StudentDto studentDto) {
         return studentDao.update(studentDto);
     }
@@ -28,4 +30,6 @@ public class StudentService {
     public boolean delete(int sno) {
         return studentDao.delete(sno);
     }
+
+
 }
