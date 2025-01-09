@@ -12,7 +12,7 @@ import java.util.ArrayList;
 @Component
 public class StudentDao {
     private Connection conn;
-    private StudentDao(){
+    public StudentDao(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(
@@ -30,7 +30,7 @@ public class StudentDao {
             ps.setInt(3,studentDto.getSmath());
             ps.setInt(4,studentDto.getSeng());
             int count = ps.executeUpdate();
-            if (count==1){return true;}
+            if (count == 1){return true;}
         } catch (Exception e) { System.out.println(e);}
         return false;
     }

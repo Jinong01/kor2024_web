@@ -38,7 +38,7 @@ function printAll(){
     .then(d => {
         let list = d
         let HTML = 
-        '<h3>전체 학생 성적 출력하는 페이지입니다.</h3><br/><table><tr><th>학번</th><th>이름</th><th>국어점수</th><th>수학점수</th><th>영어점수</th></tr>'
+        '<table><tr><th>학번</th><th>이름</th><th>국어점수</th><th>수학점수</th><th>영어점수</th></tr>'
 
         for(let index =0; index <= list.length-1; index++){
             student = list[index];
