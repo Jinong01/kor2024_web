@@ -7,11 +7,13 @@
 <body>
     <div th:replace="~{/day59/header.html :: header}"></div>
     <div>
-        아이디 : <input /><br/>
-        비밀번호 : <input /><br/>
-        닉네임 : <input /><br/>
-        연락처 : <input /><br/>
-        <button type="button">회원가입</button>
+        아이디 : <input class="midInput" /><br/>
+        비밀번호 : <input class="mpwdInput" /><br/>
+        닉네임 : <input class="mnameInput" /><br/>
+        연락처 : <input class="mphoneInput" /><br/>
+        <button onclick="signup()" type="button">회원가입</button>
     </div>
+
+    <script src="/day59/member.js"></script>
 </body>
 </html>
