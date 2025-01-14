@@ -79,10 +79,38 @@
         spring.jpa.hibernate.ddl-auto = create/update/none/create-drop/validate
 
     4. 엔티티를 조작할 인터페이스 정의하는 방법
-        1] @Repository : 스프링 컨테이너에 빈 주입하고 mvc 패턴의 Repository 담당
+        (1) @Repository : 스프링 컨테이너에 빈 주입하고 mvc 패턴의 Repository 담당
                       ( 스프링 메모리에 객체를 생성하고)
-        2] extends JpaRepository<조작할 엔티티클래스명 , PK 필드의 Java 타입>
+        (2) extends JpaRepository<조작할 엔티티클래스명 , PK 필드의 Java 타입>
             * <> : 제네릭타입, 기본타입 불가능
+
+    5. JPA 기본적으로 제공하는 함수
+        (1) .save(엔티티/인스턴스) : 해당하는 엔티티를 매핑된 테이블에 레코드 등록한다.
+            -> insert 쿼리문 대신에 사용하는 함수
+        (2) .findAll() : 매핑된 테이블의 모든 레코드를 반환 하는 함수
+            -> select * from 테이블명;
+        (3) .findById(pk 번호) : 매핑된 테이블의 지정한 pk 번호에 해당하는 레코드를 반환 함수
+            -> select * from 테이블명 where pk 번호 = pk 번호;
+            -> Optional 타입으로 반환하기 때문에 .get() 함수를 이용하여 엔티티를 반환해야한다.
+                <Optional> 타입 : 인스턴스가 null 에 대해 메소드를 제공하는 함수
+                    .get()
+        * 수정함수는 별도로 존재하지 않는다. -> 영속성 때문에
+            !!!! : 영속성을 처리할 함수 위에 @Transactional
+            트랙잭션이란? 여러가지 처리 코드를 하나의 묶음
+                -> 데이터 처리 단위를 관리하는 방법
+                -> 특징 :
+                    * 원자성 : 처리 단위가 모두 성공하거나 모두 실패하게 만들어서 데이터 무결성 유지
+                        -> 여러가지 처리 코드를 하나의 단위로 묶어서 한개라도 실패하면 모두 취소
+                        -> 왜? 쇼핑몰 : 주문생성 -> 재고차감 -> 결제완료
+                            -> 결제완료에서 오류가 발생하면 재고는 실질적으로 차감되면 안된다.
+                            -> 결제완료에서 오류가 발생하면 재고차감, 주문생성 모두 취소 = 뒤로가기
+                            트랜잭션 ( 주문생성->재고차감->결제완료)
+                    일관성 : 처리 이후 데이터가 유효한(사용가능한) 상태를 유지
+                    격리성 : 다른 트랜잭션과 서로 영향을 주지 않음
+                    지속성 : 작업이 완료되면 데이터는 영구적으로 저장
+
+        (4) .deleteById(pk 번호) : 매핑된 테이블의 지정한 pk 번호에 해당하는 레코드를 삭제하는 함수
+            -> delete from 테이블명 where pk 번호 = pk 번호
 
 클래스 : 인스턴스를 만들기 위한 객체 설계도
 인스턴스 : 클래스 기반으로 생성된 실체물
@@ -90,3 +118,33 @@
 레코드 : 행(row) 단위의 자료
 속성/필드 : 열(column) 단위의 자료
 
+[ 엔티티 관련 어노테이션 ]
+    - 엔티티란? DB 테이블과 매핑된 객체(인스턴스)
+    - 엔티티 클래스는 DB 테이블이고 엔티티 객체(인스턴스)는 테이블 레코드
+
+    1. @Entity : 객체를 관계형데이터베이스 테이블에 매핑 정의
+    2. @Id : 엔티티에 기본키(Primary key)를 지정
+        * 모든 테이블은 1개 이상의 PK 필드를 갖는다
+        * JpaRepository(인터페이스)는 PK 필드 1개를 필수로 한다.
+    3. @Column : 테이블의 열(속성/필드)을 매핑 정의
+        - 자료형 타입을 자동으로 DB 타입으로 변환해준다.
+        자바 int -> mysql int
+        자바 boolean -> mysql bit
+        자바 byte -> mysql tinyint
+        자바 short -> mysql smallint
+        자바 char -> mysql char(10)
+        자바 float -> mysql float
+        자바 double -> mysql double
+        자바 long -> mysql bigint
+        자바 String -> mysql varchar(255)
+        (1) @Column(columnDefinition = "DB type")
+        (2) @Column(nullable= )
+            -> not null 의 제약조건, false 면 not null
+        (3) @Column(unique = )
+            -> unique 의 제약조건, true 면 unique
+
+    4. @Table : 테이블 설정을 매핑 정의
+        @Table(name="테이블명") : 엔티티와 매핑된 테이블명을 정의
+        -> 생략할 경우 자동으로 테이블명이 생성된다.
+    5. @GeneratedValue(strategy = GenerationType.IDENTITY)
+        -> auto_increment : mysql 의 제약조건 중 하나로써 자동번호 부여
