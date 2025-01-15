@@ -148,3 +148,20 @@
         -> 생략할 경우 자동으로 테이블명이 생성된다.
     5. @GeneratedValue(strategy = GenerationType.IDENTITY)
         -> auto_increment : mysql 의 제약조건 중 하나로써 자동번호 부여
+
+[ 엔티티의 생성날짜와 수정날짜 자동으로 주입 ]
+    1. 엔티티 생성,수정 날짜/시간 필드/속성을 하나의 클래스에 선언
+    2. 사용할 엔티티에게 상속(extends)하여 확장시킨다.
+
+    @CreatedDate : 엔티티의 생성 날짜를 자동으로 기록해주는 어노테이션
+    @LastModifiedDate : 엔티티의 마지막 수정 날짜를 자동으로 기록해주는 어노테이션
+    @MappedSuperclass : 현재 클래스는 데이터베이스에 매핑하지 않고 상속받은 엔티티의 속성을 매핑한다.
+        -> 해당 클래스는 매핑하지 않는다.해당 클래스를 상속받은 클래스가 해당 클래스 엔티티의 속성을 매핑한다.
+    @EntityListeners(AuditingEntityListener.class) :
+        - 엔티티가 생성/수정될 때 자동으로 @CreatedDate/@LastModifiedDate 속성값을 설정
+        - JPA Auditing 기능 활성화
+            - Auditing(감사/실시간 감시)
+            - JPA 가 실시간으로 엔티티의 변화의 감지를 한다.
+            1. AppStart 클래쉬 위에 @EnableJpaAuditing
+
+* 실무에서는 레코드의 생성과 변경된 날짜/시간을 기록한다. (문제 발생시 원인을 찾기위해)

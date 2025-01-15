@@ -23,7 +23,7 @@ public class BoardController {
     @PostMapping("/write")
     public boolean write(@RequestBody BoardEntity boardEntity){
         return boardService.write(boardEntity);
-    }
+        }
 
     // R : 게시물 전체 조회
     @GetMapping("/printAll")
