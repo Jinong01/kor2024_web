@@ -1,5 +1,6 @@
 package day63.model.entity;
 
+import day63.model.dto.MemberDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,4 +21,12 @@ public class MemberEntity extends BaseTime {
     private String mname;
     @Column(columnDefinition = "varchar(13)", nullable = false, unique = true)
     private String mphone;
+
+    // Entity --> Dto
+    public MemberDto toDto(){
+        // + 빌더패턴 이용한 인스턴스 생성
+        // 클래스명.builder().필드명(새로운값).build();
+        return MemberDto.builder().mno(this.mno).mid(this.mid)
+                .mname(this.mname).mphone(this.mphone).build(); // mpwd는 보안상 제외
+    }
 }

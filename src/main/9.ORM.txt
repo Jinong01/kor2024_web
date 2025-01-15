@@ -165,3 +165,23 @@
             1. AppStart 클래쉬 위에 @EnableJpaAuditing
 
 * 실무에서는 레코드의 생성과 변경된 날짜/시간을 기록한다. (문제 발생시 원인을 찾기위해)
+
+*타입 변환의 이유 : entity 는 spring mvc 패턴의 controller 에서 사용을 비권장 한다.
+    --> Restful Api 관리 담당, Service 로직 관리 담당, 테스트 담당, 데이터베이스 관리 담당 등등
+    --> entity 는 db 와 매핑된 자료이므로 중요한 정보를 담고 있다. 그러므로 여러 레이어(구역)에서 사용하면 안전하지 못한다.
+    --> [권장] entity 는 service 에서만 사용해라.
+
+[ DTO --> 엔티티 변환 ]
+    1. 이유 : controller 에서 DTO 를 받아 service 에서는 DTO 를 entity 로 변환 해야한다.
+    2. 왜? DTO 는 데이터베이스와 매핑 관계가 아니므로 DTO 를 entity 로 변환 후 entity 조작해야한다.
+
+[ 엔티티 --> DTO 변환 ]
+    1. 이유 : service 에서 조작한 entity 를 controller 에게 보내기 위해 변환 해야한다
+    2. 왜? controller 에게 entity 를 주면 안된다. 이유 : 분업화
+
+* 분업화
+    Controller : 1. HTTP URL 매핑 2. HTTP 요청과 응답 받는곳 3. 타입변환
+    Service : 1. 비지니스로직 담당(실질적인 기능의 코드)
+    Repository : 연동된 엔티티를 조작하는 인터페이스 담당
+    Entity : 데이터베이스 테이블과 연동된 클래스/객체 담당
+    DTO : 데이터 이동객체, V <--DTO--> C <--DTO--> S

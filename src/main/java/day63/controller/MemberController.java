@@ -1,5 +1,6 @@
 package day63.controller;
 
+import day63.model.dto.MemberDto;
 import day63.model.entity.MemberEntity;
 import day63.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,14 @@ public class MemberController {
     private MemberService memberService;
 
     @PostMapping("/member/signup")
-    public boolean signup(@RequestBody MemberEntity memberEntity){
-        return memberService.signup(memberEntity);
+    public boolean signup(@RequestBody MemberDto memberDto){
+        // 관례적으로 controller 에서는 entity 를 사용하지 않는다.
+        return memberService.signup(memberDto);
     }
 
     @GetMapping("/member/infolist")
-    public List<MemberEntity> infoList(){
+    public List<MemberDto> infoList(){
+
         return memberService.infoList();
     }
 }
