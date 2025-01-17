@@ -185,3 +185,9 @@
     Repository : 연동된 엔티티를 조작하는 인터페이스 담당
     Entity : 데이터베이스 테이블과 연동된 클래스/객체 담당
     DTO : 데이터 이동객체, V <--DTO--> C <--DTO--> S
+
+
+[ resources 폴더 내 data.sql ]
+    - JPA 가 웹서버를 시작할때 샘플 DML 실행하는 SQL 파일
+    1. resources 폴더에 data.sql 작성한다.
+    2. resources -> application.properties
